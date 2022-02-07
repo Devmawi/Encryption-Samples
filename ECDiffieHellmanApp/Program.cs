@@ -18,10 +18,10 @@ namespace ECDiffieHellmanApp
 
             var message = "Hello Encrypting";
             var (iv, encodedMessage) = await alice.CreateEncodedMessageAsync(bob.PublicKey, message);
-            //var decodedMessage = await bob.DecodeMessage(alice.PublicKey, iv, encodedMessage);
-
+   
             Console.WriteLine($"Encoded message: {System.Text.Encoding.UTF8.GetString(encodedMessage)}");
 
+            // Simulates the exchange by a public key file
             var (publicKeyFile, privateKeyFile) = alice.ExportPublicPrivateKeyPair("Alice");
             var publicKey = alice.ExportPublicKey();
 
