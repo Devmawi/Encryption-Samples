@@ -31,6 +31,20 @@ namespace ECDiffieHellmanApp
             Console.WriteLine($"Decoded message: {decodedMessageFromFile}");
             // var susan = new SecretMessageProcessor();
            // await susan.DecodeMessage(publicKey, iv, encodedMessage); Throws Exception
+
+            var aliceAlgorithmn = ECDiffieHellman.Create();
+            var bobsAlgorithmn = ECDiffieHellman.Create();
+
+            var alicePublicKey = Convert.ToBase64String(aliceAlgorithmn.PublicKey.ToByteArray());
+            var bobsPublicKey = Convert.ToBase64String(bobsAlgorithmn.PublicKey.ToByteArray());
+
+            Console.WriteLine($"Alice and Bobs Key are realy different: {alicePublicKey != bobsPublicKey}");
+
+            var aliceSymKey = Convert.ToBase64String(aliceAlgorithmn.DeriveKeyMaterial(bobsAlgorithmn.PublicKey));
+            var bobsSymKey = Convert.ToBase64String(bobsAlgorithmn.DeriveKeyMaterial(aliceAlgorithmn.PublicKey));
+
+            Console.WriteLine($"But Alice and Bobs Symetric Keys are the same: {aliceSymKey == bobsSymKey}");
+
         }
     }
 }
